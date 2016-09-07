@@ -2,6 +2,7 @@ package weeksix.wednesday.employee;
 
 import java.io.*;
 import java.net.*;
+import java.util.Scanner;
 
 /**
  * 
@@ -28,30 +29,36 @@ public class Post {
 	 */
 
 	public static void main(String[] args) {
-
+		
+		Scanner sc = new Scanner(System.in);
+		String firstName = null;
+		String lastName = null;
+		String email = null;
+		String homePhone = null;
+		String cellPhone = null;
+		String password = null;
+		String active = null;
+		
 		try {
 
-			// String value for firstName - required
-			String firstName = "Heather";
-
-			// String value for lastName - required
-			String lastName = "Mills";
+			System.out.println("Welcome to the Employee Database!\n");
+			System.out.println("Please enter your first name: ");
+			firstName = sc.nextLine();
+			System.out.println("Please enter your last name: ");
+			lastName = sc.nextLine();
+			System.out.println("Please enter your email address: ");
+			email = sc.nextLine();
+			System.out.println("Please enter your home phone number: ");
+			homePhone = sc.nextLine();
+			System.out.println("Please enter your cell phone number: ");
+			cellPhone = sc.nextLine();
+			System.out.println("Please enter your password: ");
+			password = sc.nextLine();
+			System.out.println("Are you active in the system? Enter 1 for yes or 0 for no: ");
+			active = sc.nextLine();
 			
-			// String value for email - required
-			String email = "hmills365@gmail.com";
+			sc.close();
 			
-			// String value for homePhone - formatted as ###-###-#### || ###.###.#### || ##########, not required
-			String homePhone = "123-456-7890";
-
-			// String value for homePhone - formatted as ###-###-#### || ###.###.#### || ##########, not required
-			String cellPhone = "987-654-3210";
-			
-			// String value for password - required, must contain 1 uppercase, 1 lowercase, 1 number, and be a max length of 8 characters
-			String password = "Passw0rd";
-			
-			// String value for if employee is active on webserver - required, can only be a 1 or 0
-			String active = "1";
-									
 			// Creates the url parameters as a string encoding them with the
 			// defined charset
 			String queryString = String.format("firstName=%s&lastName=%s&email=%s&homePhone=%s&cellPhone=%s&password=%s&active=%s", 
@@ -70,8 +77,8 @@ public class Post {
 			HttpURLConnection connection = (HttpURLConnection) addEmployee.openConnection();
 			connection.setRequestMethod("POST");
 
-			// If we did not get a 200 (success), throw an exception
-			if (connection.getResponseCode() != 200) {
+			// If we did not get a 201 (success), throw an exception
+			if (connection.getResponseCode() != 201) {
 				throw new RuntimeException("Failed : HTTP error code : " + connection.getResponseCode());
 			}
 
@@ -80,6 +87,8 @@ public class Post {
 
 			// Loop of buffer line by line until it returns null meaning there
 			// are no more lines
+			System.out.println();
+			System.out.println("You have been added to the database!\n");
 			while (br.readLine() != null) {
 				// print out each line to the screen
 				System.out.println(br.readLine());

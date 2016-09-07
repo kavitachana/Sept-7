@@ -32,7 +32,7 @@ public class Delete {
 		try {
 			
 			//String value of the employee id to delete
-			String id = "7";
+			String id = "10";
 			
 			// Creates the url parameters as a string encoding them with the
 			// defined charset
